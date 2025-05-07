@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Đồng hồ kỹ thuật số</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: transparent; /* Đảm bảo nền trong suốt */
+            font-family: sans-serif; /* Sử dụng font chữ đơn giản */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh; /* Chiều cao tối thiểu 100% viewport height */
+            color: white; /* Màu chữ mặc định, có thể điều chỉnh */
+        }
+
+        .clock-container {
+            text-align: center;
+             background-color: transparent; /* Đảm bảo nền trong suốt cho container */
+        }
+
+        .clock-title {
+            font-size: 2em; /* Kích thước tiêu đề */
+            margin-bottom: 20px;
+            letter-spacing: 5px; /* Khoảng cách giữa các chữ */
+        }
+
+        .clock {
+            display: flex;
+            justify-content: center;
+            align-items: flex-start; /* Căn chỉnh các mục theo đỉnh */
+        }
+
+        .clock > div {
+            padding: 0 20px; /* Khoảng cách giữa các phần */
+            position: relative;
+        }
+
+        .clock > div:not(:last-child)::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 2px; /* Độ dày đường phân cách */
+            height: 100%; /* Chiều cao đường phân cách */
+            background: rgba(255, 255, 255, 0.5); /* Màu đường phân cách (trắng mờ) */
+        }
+
+        .clock .number {
+            font-size: 5em; /* Kích thước số lớn */
+            font-weight: lighter; /* Độ dày font */
+            line-height: 1; /* Chiều cao dòng */
+            margin-bottom: 5px; /* Khoảng cách giữa số và nhãn */
+        }
+
+        .clock .label {
+            font-size: 0.8em; /* Kích thước nhãn */
+            text-transform: uppercase; /* Chuyển chữ thành in hoa */
+            opacity: 0.8; /* Độ mờ của nhãn */
+        }
+    </style>
+    <link rel="preconnect" href="Roboto Medium.ttf">
+    <link rel="preconnect" href="Roboto Medium.ttf" crossorigin>
+    <link href="Code\Clock" rel="stylesheet">
+</head>
+<body>
+
+    <div class="clock-container">
+        <div class="clock-title">SOONEX CLOCK</div> <div class="clock">
+            <div>
+                <div id="hour" class="number">00</div>
+                <div class="label">Hour</div>
+            </div>
+            <div>
+                <div id="minutes" class="number">00</div>
+                <div class="label">Minutes</div>
+            </div>
+            <div>
+                <div id="seconds" class="number">00</div>
+                <div class="label">Seconds</div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function updateClock() {
+            const now = new Date();
+
+            const day = now.getDate();
+            const hour = now.getHours();
+            const minutes = now.getMinutes();
+            const seconds = now.getSeconds();
+
+            // Hàm thêm số 0 đứng trước nếu cần
+            function addLeadingZero(number) {
+                return number < 10 ? '0' + number : number;
+            }
+
+            
+            document.getElementById('hour').textContent = addLeadingZero(hour);
+            document.getElementById('minutes').textContent = addLeadingZero(minutes);
+            document.getElementById('seconds').textContent = addLeadingZero(seconds);
+        }
+
+        // Cập nhật đồng hồ mỗi giây
+        setInterval(updateClock, 1000);
+
+        // Cập nhật đồng hồ ngay khi tải trang để tránh delay 1 giây ban đầu
+        updateClock();
+
+    </script>
+</body>
+</html>
+
+
